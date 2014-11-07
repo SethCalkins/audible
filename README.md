@@ -30,7 +30,7 @@ All data in these files is encoded as big endian. The basic layout of a
 --------|------------------------------------------------------------------------
       4 | File size.
       4 | File magic value.
-      4 | N number of entries in table of contents.
+      4 | Number of entries in table of contents (N).
       4 | Unidentified integer: possibly marker for beginning of TOC entries.
    N*12 | N number of TOC entries. Each consisting of 3 32-bit integers:
         | * 32-bit TOC table index: 0..N-1,
@@ -39,7 +39,7 @@ All data in these files is encoded as big endian. The basic layout of a
       4 | Unidentified integer: possibly marker for end of TOC entries.
      20 | Header termination block; No other known purpose. Starts with file
         | magic value, followed by 16 zero bytes.
-      4 | M number of entries in tag dictionary.
+      4 | Number of entries in tag dictionary (M).
 M*(9+?) | M number of key/value pairs, each representing a single tag.
         | * 1 unidentified byte
         | * 32-bit key string length in bytes (X).
