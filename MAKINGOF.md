@@ -2,9 +2,9 @@
 
 ### A note upfront
 
-The reason I did all is because I originally wanted to find out if I could work
-around the DRM stuff in Audible audio books. So far this has not been
-successful, but at least we got a header parser library out of it.
+The reason I did all this, is because I originally wanted to find out if I
+could work around the DRM stuff in Audible audio books. So far this has not
+been successful, but at least we got a header parser library out of it.
 
 While writing this, I found there is a python library which interprets .aa file
 header data. While I could have used it as a reference to make my life easier,
