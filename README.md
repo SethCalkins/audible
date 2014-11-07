@@ -11,9 +11,6 @@ contents in a hex editor and piecing the header together from there.
 Contrary to the audio data, the header is not encrypted and can be readily
 accessed.
 
-All data in these files is encoded as big endian. The basic layout of a
-`.aa` file is as follows:
-
 The data presented in this document are from the test file in the `testdata`
 directory. This is the free introductory audio book you get when you sign
 up for an account on Audible.com. This is also the file I used to piece all
@@ -21,6 +18,9 @@ the information together.
 
 If you are interested in finding out how I pieced this together, you can read
 the `MAKINGOF.md` file in this repository.
+
+All data in these files is encoded as big endian. The basic layout of a
+`.aa` file is as follows:
 
 
 ### File layout
