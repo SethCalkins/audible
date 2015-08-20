@@ -4,9 +4,13 @@
 package audible
 
 import (
+	"bytes"
+	"encoding/binary"
 	"errors"
 	"io"
 	"os"
+	"strconv"
+	"strings"
 )
 
 // fileMagic defines the magic number that identifies an audible file.
@@ -14,10 +18,12 @@ const fileMagic = 1469084982
 
 // Header defines the header for an Audible .aa file.
 type Header struct {
-	Filesize uint32            // Total file size.
-	Magic    uint32            // File magic value.
-	TOC      [][2]uint32       // Table of contents defines the offsets and size of various blocks.
-	Tags     map[string]string // Table of key/value tag pairs.
+	Filesize   uint32            // Total file size.
+	Magic      uint32            // File magic value.
+	TOC        [][2]uint32       // Table of contents defines the offsets and size of various blocks.
+	Tags       map[string]string // Table of key/value tag pairs.
+	HeaderSeed uint32
+	HeaderKey  []byte
 }
 
 // ReadFile reads metadata for the given file.
@@ -124,6 +130,21 @@ func Read(r io.Reader) (hdr *Header, err error) {
 		val, err := readString(r, nval)
 		if err != nil {
 			return nil, err
+		}
+
+		if key == "HeaderSeed" {
+			i, _ := strconv.Atoi(val)
+			hdr.HeaderSeed = (uint32)(i)
+		}
+
+		if key == "HeaderKey" {
+			data := strings.Split(val, " ")
+			buf := new(bytes.Buffer)
+			for _, item := range data {
+				i, _ := strconv.Atoi(item)
+				_ = binary.Write(buf, binary.BigEndian, (uint32)(i))
+			}
+			hdr.HeaderKey = buf.Bytes()
 		}
 
 		hdr.Tags[key] = val
